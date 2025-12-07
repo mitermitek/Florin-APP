@@ -1,0 +1,44 @@
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div
+    class="bg-white rounded w-11/12 max-w-md max-h-[90vh] overflow-auto shadow-xl"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="modalId()"
+  >
+    <div class="flex items-center justify-between p-4 border-b border-gray-200">
+      <h2 [id]="modalId()">
+        {{ title() }}
+      </h2>
+      <button
+        class="text-2xl leading-none w-8 h-8 cursor-pointer"
+        (click)="close()"
+        aria-label="Close"
+      >
+        &times;
+      </button>
+    </div>
+
+    <div class="p-4">
+      <ng-content></ng-content>
+    </div>
+
+    <div class="flex justify-end gap-2 p-4 border-t border-gray-200">
+      <button
+        class="px-4 py-2 bg-white border border-gray-400 rounded cursor-pointer hover:bg-gray-100"
+        type="button"
+        (click)="close()"
+      >
+        {{ cancelText() }}
+      </button>
+      <button
+        class="px-4 py-2 text-white bg-black rounded cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
+        type="button"
+        [attr.form]="formId()"
+        [disabled]="confirmDisabled()"
+        (click)="confirm()"
+      >
+        {{ confirmText() }}
+      </button>
+    </div>
+  </div>
+</div>
