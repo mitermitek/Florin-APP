@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, effect, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -34,6 +34,17 @@ export class Pagination {
 
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
   });
+
+  constructor() {
+    effect(() => {
+      const total = this.totalPages();
+      const current = this.currentPage();
+
+      if (current > total && total > 0) {
+        this.pageChange.emit(total);
+      }
+    });
+  }
 
   protected changePage(page: number) {
     if (page >= 1 && page <= this.totalPages()) {
