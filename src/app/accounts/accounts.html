@@ -1,0 +1,108 @@
+<h1 class="text-xl font-bold">Accounts</h1>
+
+<button
+  type="button"
+  class="bg-black text-white w-full p-2 rounded cursor-pointer"
+  (click)="createAccount()"
+>
+  Create new account
+</button>
+
+<div class="relative overflow-x-auto mt-4 rounded">
+  <table class="text-left w-full">
+    <thead class="bg-neutral-100">
+      <tr>
+        <th scope="col" class="p-2">Name</th>
+        <th scope="col" class="p-2">Starting balance</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (account of accounts()?.items; track account.id) {
+        <tr>
+          <td class="p-2">{{ account.name }}</td>
+          <td class="p-2">{{ account.startingBalance | currency }}</td>
+          <td class="p-2">
+            <button
+              type="button"
+              class="px-4 py-2 text-white bg-black rounded cursor-pointer"
+              (click)="editAccount(account)"
+              [attr.aria-label]="'Edit ' + account.name"
+            >
+              <i class="bx bx-edit" aria-hidden="true"></i>
+            </button>
+            <button
+              type="button"
+              class="px-4 py-2 text-white bg-red-600 rounded cursor-pointer ml-2"
+              (click)="deleteAccount(account)"
+              [attr.aria-label]="'Delete ' + account.name"
+            >
+              <i class="bx bx-trash" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<app-pagination
+  [currentPage]="currentPage()"
+  [totalItems]="totalItems()"
+  (pageChange)="updateCurrentPage($event)"
+/>
+
+@if (showAccountFormModal()) {
+  <app-modal
+    modalId="create-update-account-modal"
+    [title]="accountFormModalTitle()"
+    formId="account-form"
+    [confirmDisabled]="accountForm.invalid"
+    (confirmed)="submitAccountForm()"
+    (closed)="closeAccountFormModal()"
+  >
+    <form id="account-form" [formGroup]="accountForm" class="flex flex-col gap-y-4">
+      <div class="flex flex-col gap-y-2">
+        <label for="name">Name</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          required
+          class="border border-gray-300 bg-gray-100 p-2 rounded"
+        />
+        @if (accountForm.controls.name.invalid && accountForm.controls.name.touched) {
+          <p class="text-red-500">
+            @if (accountForm.controls.name.errors?.['required']) {
+              <small>Name is required.</small>
+            }
+            @if (accountForm.controls.name.errors?.['maxlength']) {
+              <small>Name cannot exceed 100 characters.</small>
+            }
+          </p>
+        }
+      </div>
+      <div class="flex flex-col gap-y-2">
+        <label for="startingBalance">Starting Balance</label>
+        <input
+          id="startingBalance"
+          type="number"
+          formControlName="startingBalance"
+          class="border border-gray-300 bg-gray-100 p-2 rounded"
+        />
+      </div>
+    </form>
+  </app-modal>
+}
+
+@if (showAccountDeleteModal()) {
+  <app-modal
+    modalId="delete-account-modal"
+    title="Delete Account"
+    [confirmDisabled]="false"
+    (confirmed)="confirmDeleteAccount()"
+    (closed)="closeAccountDeleteModal()"
+  >
+    <p>Are you sure you want to delete the account "{{ accountSelected()?.name }}"?</p>
+  </app-modal>
+}
