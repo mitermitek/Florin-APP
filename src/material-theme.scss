@@ -1,4 +1,3 @@
-
 // Include theming for Angular Material with `mat.theme()`.
 // This Sass mixin will define CSS variables that are used for styling Angular Material
 // components according to the Material 3 design spec.
@@ -8,14 +7,12 @@
 
 html {
   height: 100%;
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  @include mat.theme((color: (primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    ));
 }
 
 body {
@@ -34,4 +31,29 @@ body {
   // Reset the user agent margin.
   margin: 0;
   height: 100%;
+}
+
+// Snackbar color variants
+.snackbar-success {
+  @include mat.snack-bar-overrides((container-color: var(--mat-sys-primary),
+      supporting-text-color: var(--mat-sys-on-primary),
+    ));
+}
+
+.snackbar-error {
+  @include mat.snack-bar-overrides((container-color: var(--mat-sys-error),
+      supporting-text-color: var(--mat-sys-on-error),
+    ));
+}
+
+.snackbar-warning {
+  @include mat.snack-bar-overrides((container-color: var(--mat-sys-tertiary),
+      supporting-text-color: var(--mat-sys-on-tertiary),
+    ));
+}
+
+.snackbar-info {
+  @include mat.snack-bar-overrides((container-color: var(--mat-sys-secondary),
+      supporting-text-color: var(--mat-sys-on-secondary),
+    ));
 }
