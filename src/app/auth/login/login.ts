@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 import { catchError, EMPTY, take } from 'rxjs';
-import { SnackbarService } from '../../shared/snackbar.service';
+import { SnackbarService } from '../../shared/snackbar/snackbar.service';
 import { AuthService } from '../auth.service';
 
 @Component({
