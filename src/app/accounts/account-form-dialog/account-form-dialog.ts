@@ -32,15 +32,14 @@ import { AccountsService } from '../accounts.service';
     MatIconModule,
   ],
   templateUrl: './account-form-dialog.html',
-  styleUrl: './account-form-dialog.css',
 })
 export class AccountFormDialog {
   public data = inject<Account | undefined>(MAT_DIALOG_DATA);
 
-  private formBuilder = inject(NonNullableFormBuilder);
-  private dialogRef = inject(MatDialogRef<AccountFormDialog>);
-  private accountsService = inject(AccountsService);
-  private snackbarService = inject(SnackbarService);
+  private readonly formBuilder = inject(NonNullableFormBuilder);
+  private readonly dialogRef = inject(MatDialogRef<AccountFormDialog>);
+  private readonly accountsService = inject(AccountsService);
+  private readonly snackbarService = inject(SnackbarService);
 
   protected form = this.formBuilder.group({
     name: [this.data?.name ?? '', [Validators.required, Validators.maxLength(100)]],
@@ -64,7 +63,9 @@ export class AccountFormDialog {
         catchError((error: HttpErrorResponse) => {
           const action = this.data?.id ? 'updating' : 'creating';
           let message = `An error occurred while ${action} the account. Please try again later.`;
-          if (error.error.type === 'AccountAlreadyExistsException') {
+
+          const errorType = error.error.type;
+          if (errorType === 'AccountAlreadyExistsException') {
             message = 'An account with this name already exists.';
           }
 

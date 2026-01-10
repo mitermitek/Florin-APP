@@ -22,13 +22,12 @@ import { passwordMatchValidator } from './password-match.validator';
     MatIconModule,
   ],
   templateUrl: './register.html',
-  styleUrl: './register.css',
 })
 export class Register {
-  private router = inject(Router);
-  private formBuilder = inject(NonNullableFormBuilder);
-  private authService = inject(AuthService);
-  private snackbarService = inject(SnackbarService);
+  private readonly router = inject(Router);
+  private readonly formBuilder = inject(NonNullableFormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly snackbarService = inject(SnackbarService);
 
   protected form = this.formBuilder.group(
     {
@@ -56,7 +55,9 @@ export class Register {
         take(1),
         catchError((error: HttpErrorResponse) => {
           let message = 'An error occurred during registration. Please try again later.';
-          if ((error.error.type = 'UserAlreadyExistsException')) {
+
+          const errorType = error.error.type;
+          if (errorType === 'UserAlreadyExistsException') {
             message = 'A user with this email already exists.';
           }
 

@@ -19,12 +19,11 @@ import { AccountsService } from './accounts.service';
   selector: 'app-accounts',
   imports: [MatButtonModule, MatIconModule, MatPaginatorModule, MatTableModule],
   templateUrl: './accounts.html',
-  styleUrl: './accounts.css',
 })
 export class Accounts {
-  private destroyRef = inject(DestroyRef);
-  private dialog = inject(MatDialog);
-  private accountsService = inject(AccountsService);
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly dialog = inject(MatDialog);
+  private readonly accountsService = inject(AccountsService);
 
   protected columns = signal(['id', 'name', 'startingBalance', 'actions']);
   protected pageSizeOptions = signal(DEFAULT_PAGE_SIZE_OPTIONS);

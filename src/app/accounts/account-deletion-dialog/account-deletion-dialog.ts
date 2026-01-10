@@ -17,14 +17,13 @@ import { AccountsService } from '../accounts.service';
   selector: 'app-account-deletion-dialog',
   imports: [MatButtonModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose],
   templateUrl: './account-deletion-dialog.html',
-  styleUrl: './account-deletion-dialog.css',
 })
 export class AccountDeletionDialog {
   public data = inject<Account>(MAT_DIALOG_DATA);
 
-  private dialogRef = inject(MatDialogRef<AccountDeletionDialog>);
-  private accountsService = inject(AccountsService);
-  private snackbarService = inject(SnackbarService);
+  private readonly dialogRef = inject(MatDialogRef<AccountDeletionDialog>);
+  private readonly accountsService = inject(AccountsService);
+  private readonly snackbarService = inject(SnackbarService);
 
   protected confirm(): void {
     this.accountsService

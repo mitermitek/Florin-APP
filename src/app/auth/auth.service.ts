@@ -10,8 +10,8 @@ import { LoginRequest, RegisterRequest, User } from './auth.data';
 export class AuthService {
   public isAuthenticated = false;
 
-  private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/auth`;
+  private readonly httpClient = inject(HttpClient);
+  private readonly apiUrl = `${environment.apiUrl}/auth`;
 
   public me(): Observable<User> {
     return this.httpClient.get<User>(`${this.apiUrl}/me`);

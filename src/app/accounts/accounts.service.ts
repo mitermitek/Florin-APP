@@ -9,8 +9,8 @@ import { Account, AccountRequest } from './accounts.data';
   providedIn: 'root',
 })
 export class AccountsService {
-  private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}/accounts`;
+  private readonly httpClient = inject(HttpClient);
+  private readonly apiUrl = `${environment.apiUrl}/accounts`;
 
   public getAccounts(params: PaginationParams): Observable<Paginated<Account>> {
     const httpParams = new HttpParams()

@@ -21,13 +21,12 @@ import { AuthService } from '../auth.service';
     MatIconModule,
   ],
   templateUrl: './login.html',
-  styleUrl: './login.css',
 })
 export class Login {
-  private router = inject(Router);
-  private formBuilder = inject(NonNullableFormBuilder);
-  private authService = inject(AuthService);
-  private snackbarService = inject(SnackbarService);
+  private readonly router = inject(Router);
+  private readonly formBuilder = inject(NonNullableFormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly snackbarService = inject(SnackbarService);
 
   protected form = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -46,7 +45,9 @@ export class Login {
         take(1),
         catchError((error: HttpErrorResponse) => {
           let message = 'An error occurred during login. Please try again later.';
-          if ((error.error.type = 'BadCredentialsException')) {
+
+          const errorType = error.error.type;
+          if (errorType === 'BadCredentialsException') {
             message = 'Invalid email or password.';
           }
 
