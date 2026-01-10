@@ -1,0 +1,79 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-form-field>
+    <mat-label>First name</mat-label>
+    <input type="text" matInput placeholder="First name" formControlName="firstName" />
+    @if (form.controls.firstName.errors?.['required']) {
+      <mat-error>Email is required</mat-error>
+    }
+    @if (form.controls.firstName.errors?.['minlength']) {
+      <mat-error>First name must be at least 3 characters long</mat-error>
+    }
+    @if (form.controls.firstName.errors?.['maxlength']) {
+      <mat-error>First name cannot be more than 100 characters long</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Last name</mat-label>
+    <input type="text" matInput placeholder="Last name" formControlName="lastName" />
+
+    @if (form.controls.lastName.errors?.['required']) {
+      <mat-error>Last name is required</mat-error>
+    }
+    @if (form.controls.lastName.errors?.['minlength']) {
+      <mat-error>Last name must be at least 3 characters long</mat-error>
+    }
+    @if (form.controls.lastName.errors?.['maxlength']) {
+      <mat-error>Last name cannot be more than 100 characters long</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input type="email" matInput placeholder="Email" formControlName="email" />
+
+    @if (form.controls.email.errors?.['required']) {
+      <mat-error>Email is required</mat-error>
+    }
+    @if (form.controls.email.errors?.['email']) {
+      <mat-error>Enter a valid email</mat-error>
+    }
+    @if (form.controls.email.errors?.['minlength']) {
+      <mat-error>Email must be at least 5 characters long</mat-error>
+    }
+    @if (form.controls.email.errors?.['maxlength']) {
+      <mat-error>Email cannot be more than 255 characters long</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input type="password" matInput placeholder="Password" formControlName="password" />
+
+    @if (form.controls.password.errors?.['required']) {
+      <mat-error>Password is required</mat-error>
+    }
+    @if (form.controls.password.errors?.['minlength']) {
+      <mat-error>Password must be at least 8 characters long</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password confirmation</mat-label>
+    <input
+      type="password"
+      matInput
+      placeholder="Password confirmation"
+      formControlName="passwordConfirmation"
+    />
+
+    @if (form.controls.passwordConfirmation.errors?.['required']) {
+      <mat-error>Password confirmation is required</mat-error>
+    }
+    @if (form.controls.passwordConfirmation.errors?.['passwordMismatch']) {
+      <mat-error>Passwords do not match</mat-error>
+    }
+  </mat-form-field>
+
+  <button type="submit" matButton="filled">Register</button>
+</form>

@@ -4,3 +4,11 @@ export interface User {
   lastName: string;
   email: string;
 }
+
+export interface RegisterRequest {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+}
