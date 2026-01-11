@@ -9,9 +9,9 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { catchError, EMPTY, take } from 'rxjs';
-import { SnackbarService } from '../../shared/snackbar/snackbar.service';
-import { Account } from '../accounts.data';
-import { AccountsService } from '../accounts.service';
+import { SnackbarService } from '../../../shared/snackbar/snackbar.service';
+import { Account } from '../../accounts.data';
+import { AccountsService } from '../../accounts.service';
 
 @Component({
   selector: 'app-account-deletion-dialog',

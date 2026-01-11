@@ -23,6 +23,12 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let account">
+        <a [routerLink]="['/accounts', account.id]">
+          <button matIconButton [attr.aria-label]="'View details for account ' + account.name">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </a>
+
         <button
           matIconButton
           (click)="openFormDialog(account)"

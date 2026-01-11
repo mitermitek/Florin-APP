@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { accountResolver } from './accounts/account/account-resolver';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,13 @@ export const routes: Routes = [
   {
     path: 'accounts',
     loadComponent: () => import('./accounts/accounts').then((m) => m.Accounts),
+  },
+  {
+    path: 'accounts/:id',
+    loadComponent: () => import('./accounts/account/account').then((m) => m.Account),
+    resolve: {
+      account: accountResolver,
+    },
   },
   {
     path: 'categories',

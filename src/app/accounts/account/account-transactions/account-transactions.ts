@@ -1,38 +1,56 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { Component, DestroyRef, inject, input, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
 import {
   DEFAULT_PAGE_SIZE_OPTIONS,
   DEFAULT_PAGINATION_PARAMS,
-} from '../shared/pagination/pagination.data';
-import { AccountDeletionDialog } from './account/account-deletion-dialog/account-deletion-dialog';
-import { AccountFormDialog } from './account/account-form-dialog/account-form-dialog';
-import { Account } from './accounts.data';
-import { AccountsService } from './accounts.service';
+} from '../../../shared/pagination/pagination.data';
+import { AccountsService } from '../../accounts.service';
+import { AccountTransactionDeletionDialog } from './account-transaction-deletion-dialog/account-transaction-deletion-dialog';
+import { AccountTransactionFormDialog } from './account-transaction-form-dialog/account-transaction-form-dialog';
+import { AccountTransaction } from './account-transactions.data';
 
 @Component({
-  selector: 'app-accounts',
-  imports: [RouterLink, MatButtonModule, MatIconModule, MatPaginatorModule, MatTableModule],
-  templateUrl: './accounts.html',
+  selector: 'app-account-transactions',
+  imports: [
+    CurrencyPipe,
+    DatePipe,
+    MatButtonModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatTableModule,
+  ],
+  templateUrl: './account-transactions.html',
 })
-export class Accounts {
+export class AccountTransactions {
+  accountId = input.required<number>();
+
   private readonly destroyRef = inject(DestroyRef);
   private readonly dialog = inject(MatDialog);
   private readonly accountsService = inject(AccountsService);
 
-  protected columns = signal(['id', 'name', 'startingBalance', 'actions']);
+  protected columns = signal([
+    'id',
+    'category',
+    'type',
+    'amount',
+    'date',
+    'title',
+    'description',
+    'actions',
+  ]);
   protected pageSizeOptions = signal(DEFAULT_PAGE_SIZE_OPTIONS);
   protected paginationParams = signal(DEFAULT_PAGINATION_PARAMS);
 
-  protected paginatedAccounts = toSignal(
+  protected paginatedAccountTransactions = toSignal(
     toObservable(this.paginationParams).pipe(
-      switchMap((params) => this.accountsService.getAccounts(params)),
+      switchMap((params) => this.accountsService.getAccountTransactions(this.accountId(), params)),
     ),
   );
 
@@ -43,10 +61,13 @@ export class Accounts {
     });
   }
 
-  protected openFormDialog(account?: Account): void {
+  protected openFormDialog(accountTransaction?: AccountTransaction): void {
     this.dialog
-      .open(AccountFormDialog, {
-        data: account,
+      .open(AccountTransactionFormDialog, {
+        data: {
+          accountId: this.accountId(),
+          transaction: accountTransaction,
+        },
       })
       .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -58,10 +79,13 @@ export class Accounts {
       });
   }
 
-  protected openDeletionDialog(account: Account): void {
+  protected openDeletionDialog(accountTransaction: AccountTransaction): void {
     this.dialog
-      .open(AccountDeletionDialog, {
-        data: account,
+      .open(AccountTransactionDeletionDialog, {
+        data: {
+          accountId: this.accountId(),
+          transaction: accountTransaction,
+        },
       })
       .afterClosed()
       .pipe(takeUntilDestroyed(this.destroyRef))

@@ -1,0 +1,14 @@
+<dl>
+  <dt>ID</dt>
+  <dd>{{ account().id }}</dd>
+
+  <dt>Name</dt>
+  <dd>{{ account().name }}</dd>
+
+  @if (account().startingBalance) {
+    <dt>Starting Balance</dt>
+    <dd>{{ account().startingBalance }}</dd>
+  }
+</dl>
+
+<app-account-transactions [accountId]="account().id" />

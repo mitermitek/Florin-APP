@@ -1,0 +1,76 @@
+@if (paginatedAccountTransactions(); as paginatedAccountTransactions) {
+  <button matButton (click)="openFormDialog()">
+    <mat-icon>add</mat-icon>
+    Create Transaction
+  </button>
+
+  <table mat-table [dataSource]="paginatedAccountTransactions.items">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.category.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.type }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>Amount</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.amount | currency }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.date | date: 'yyyy-MM-dd' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.title }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let transaction">
+        <button
+          matIconButton
+          (click)="openFormDialog(transaction)"
+          [attr.aria-label]="'Edit transaction ' + transaction.id"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          matIconButton
+          (click)="openDeletionDialog(transaction)"
+          [attr.aria-label]="'Open deletion dialog for transaction ' + transaction.id"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns()"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns()"></tr>
+  </table>
+
+  <mat-paginator
+    [length]="paginatedAccountTransactions.total"
+    [pageSize]="paginationParams().size"
+    [pageSizeOptions]="pageSizeOptions()"
+    (page)="onPageChange($event)"
+    aria-label="Select page of transactions"
+  >
+  </mat-paginator>
+}

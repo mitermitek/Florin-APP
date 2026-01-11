@@ -14,9 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { catchError, EMPTY, take } from 'rxjs';
-import { SnackbarService } from '../../shared/snackbar/snackbar.service';
-import { Account } from '../accounts.data';
-import { AccountsService } from '../accounts.service';
+import { SnackbarService } from '../../../shared/snackbar/snackbar.service';
+import { Account } from '../../accounts.data';
+import { AccountsService } from '../../accounts.service';
 
 @Component({
   selector: 'app-account-form-dialog',
@@ -43,7 +43,7 @@ export class AccountFormDialog {
 
   protected form = this.formBuilder.group({
     name: [this.data?.name ?? '', [Validators.required, Validators.maxLength(100)]],
-    startingBalance: [this.data?.startingBalance ?? undefined],
+    startingBalance: [this.data?.startingBalance],
   });
 
   protected submit(): void {

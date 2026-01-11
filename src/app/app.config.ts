@@ -5,6 +5,7 @@ import {
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { provideRouter } from '@angular/router';
 import { catchError, firstValueFrom, of, tap } from 'rxjs';
@@ -29,5 +30,6 @@ export const appConfig: ApplicationConfig = {
       );
     }),
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
+    provideNativeDateAdapter(),
   ],
 };

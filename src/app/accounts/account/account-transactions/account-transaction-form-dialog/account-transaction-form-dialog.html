@@ -1,0 +1,81 @@
+<h2 mat-dialog-title>
+  @if (data) {
+    Edit transaction
+  } @else {
+    New transaction
+  }
+</h2>
+<mat-dialog-content>
+  <form id="transactionForm" [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        @for (type of types(); track type) {
+          <mat-option [value]="type">{{ type }}</mat-option>
+        }
+      </mat-select>
+
+      @if (form.controls.type.errors?.['required']) {
+        <mat-error>Type is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="categoryId">
+        @for (category of categories(); track category.id) {
+          <mat-option [value]="category.id">{{ category.name }}</mat-option>
+        }
+      </mat-select>
+
+      @if (form.controls.categoryId.errors?.['required']) {
+        <mat-error>Category is required</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input type="number" matInput placeholder="Amount" formControlName="amount" />
+
+      @if (form.controls.amount.errors?.['required']) {
+        <mat-error>Amount is required</mat-error>
+      }
+      @if (form.controls.amount.errors?.['min']) {
+        <mat-error>Amount must be at least 0.01</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="date" formControlName="date" />
+
+      <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+      <mat-datepicker #date></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input type="text" matInput placeholder="Title" formControlName="title" />
+
+      @if (form.controls.title.errors?.['required']) {
+        <mat-error>Title is required</mat-error>
+      }
+      @if (form.controls.title.errors?.['maxlength']) {
+        <mat-error>Title cannot be longer than 255 characters</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Description" formControlName="description"></textarea>
+
+      @if (form.controls.description.errors?.['maxlength']) {
+        <mat-error>Description cannot be longer than 255 characters</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton mat-dialog-close>Cancel</button>
+  <button type="submit" form="transactionForm" matButton cdkFocusInitial>Save</button>
+</mat-dialog-actions>
