@@ -12,8 +12,8 @@ import {
 } from '../shared/pagination/pagination.data';
 import { Category } from './categories.data';
 import { CategoriesService } from './categories.service';
-import { CategoryDeletionDialog } from './category-deletion-dialog/category-deletion-dialog';
-import { CategoryFormDialog } from './category-form-dialog/category-form-dialog';
+import { CategoryDeletionDialog } from './category/category-deletion-dialog/category-deletion-dialog';
+import { CategoryFormDialog } from './category/category-form-dialog/category-form-dialog';
 
 @Component({
   selector: 'app-categories',

@@ -14,9 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { catchError, EMPTY, take } from 'rxjs';
-import { SnackbarService } from '../../shared/snackbar/snackbar.service';
-import { Category } from '../categories.data';
-import { CategoriesService } from '../categories.service';
+import { SnackbarService } from '../../../shared/snackbar/snackbar.service';
+import { Category } from '../../categories.data';
+import { CategoriesService } from '../../categories.service';
 
 @Component({
   selector: 'app-category-form-dialog',

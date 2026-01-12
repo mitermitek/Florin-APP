@@ -9,9 +9,9 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { catchError, EMPTY, take } from 'rxjs';
-import { SnackbarService } from '../../shared/snackbar/snackbar.service';
-import { Category } from '../categories.data';
-import { CategoriesService } from '../categories.service';
+import { SnackbarService } from '../../../shared/snackbar/snackbar.service';
+import { Category } from '../../categories.data';
+import { CategoriesService } from '../../categories.service';
 
 @Component({
   selector: 'app-category-deletion-dialog',
