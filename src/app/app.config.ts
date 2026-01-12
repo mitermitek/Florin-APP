@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
       return firstValueFrom(
         authService.me().pipe(
           tap((user) => {
-            authService.isAuthenticated = !!user;
+            authService.isAuthenticated.set(!!user);
           }),
           catchError(() => of(null)),
         ),

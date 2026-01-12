@@ -59,7 +59,7 @@ export class Login {
         }),
       )
       .subscribe(() => {
-        this.authService.isAuthenticated = true;
+        this.authService.isAuthenticated.set(true);
         this.router.navigate(['/']);
       });
   }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { LoginRequest, RegisterRequest, User } from './auth.data';
@@ -8,7 +8,7 @@ import { LoginRequest, RegisterRequest, User } from './auth.data';
   providedIn: 'root',
 })
 export class AuthService {
-  public isAuthenticated = false;
+  public isAuthenticated = signal(false);
 
   private readonly httpClient = inject(HttpClient);
   private readonly apiUrl = `${environment.apiUrl}/auth`;

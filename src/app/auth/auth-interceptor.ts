@@ -15,7 +15,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(clonedReq).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401) {
-        authService.isAuthenticated = false;
+        authService.isAuthenticated.set(false);
         router.navigate(['/auth/login']);
       }
 

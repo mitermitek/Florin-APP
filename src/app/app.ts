@@ -1,4 +1,4 @@
-import { Component, computed, DestroyRef, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, DestroyRef, inject, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,7 +29,7 @@ export class App {
   private readonly authService = inject(AuthService);
 
   protected sidenavElement = viewChild<MatSidenav>('sidenav');
-  protected isAuthenticated = signal(this.authService.isAuthenticated);
+  protected isAuthenticated = computed(() => this.authService.isAuthenticated());
 
   protected menuButtonAriaLabel = computed(() =>
     this.sidenavElement()?.opened ? 'Close side navigation' : 'Open side navigation',
