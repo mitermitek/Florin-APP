@@ -1,1 +1,30 @@
-<router-outlet />
+<mat-toolbar>
+  <button matIconButton [attr.aria-label]="menuButtonAriaLabel()" (click)="toggleSidenav()">
+    @if (sidenavElement()?.opened) {
+      <mat-icon>close</mat-icon>
+    } @else {
+      <mat-icon>menu</mat-icon>
+    }
+  </button>
+  <span>Florin</span>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="over" [fixedInViewport]="true" fixedTopGap="56" fullscreen>
+    <mat-nav-list>
+      @if (isAuthenticated()) {
+        <a mat-list-item routerLink="/accounts">Accounts</a>
+        <a mat-list-item routerLink="/categories">Categories</a>
+      } @else {
+        <a mat-list-item routerLink="/auth/login">Login</a>
+        <a mat-list-item routerLink="/auth/register">Register</a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
