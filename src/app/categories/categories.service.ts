@@ -20,7 +20,7 @@ export class CategoriesService {
     return this.httpClient.get<Paginated<Category>>(this.apiUrl, { params: httpParams });
   }
 
-  public getCategory(id: string): Observable<Category> {
+  public getCategory(id: number): Observable<Category> {
     return this.httpClient.get<Category>(`${this.apiUrl}/${id}`);
   }
 
