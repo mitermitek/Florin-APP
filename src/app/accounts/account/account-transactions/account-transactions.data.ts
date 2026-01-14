@@ -19,3 +19,8 @@ export interface AccountTransactionRequest {
   title: string;
   description?: string;
 }
+
+export type TransactionErrorType =
+  | 'TransactionNotFoundException'
+  | 'AccountNotFoundException'
+  | 'CategoryNotFoundException';

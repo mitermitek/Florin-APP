@@ -2,8 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { RedirectCommand, ResolveFn, Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
+import { ErrorResponse } from '../../shared/error/error.data';
 import { SnackbarService } from '../../shared/snackbar/snackbar.service';
-import { Account } from '../accounts.data';
+import { Account, AccountErrorType } from '../accounts.data';
 import { AccountsService } from '../accounts.service';
 
 export const accountResolver: ResolveFn<Account | RedirectCommand> = (route) => {
@@ -16,7 +17,7 @@ export const accountResolver: ResolveFn<Account | RedirectCommand> = (route) => 
     catchError((error: HttpErrorResponse) => {
       let message = `An error occurred while loading the account. Please try again later.`;
 
-      const errorType = error.error.type;
+      const errorType = (error.error as ErrorResponse<AccountErrorType>)?.type;
       if (errorType === 'AccountNotFoundException') {
         message = `The requested account was not found.`;
       }

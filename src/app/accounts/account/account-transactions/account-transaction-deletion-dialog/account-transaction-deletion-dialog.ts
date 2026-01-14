@@ -10,8 +10,10 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { catchError, EMPTY, take } from 'rxjs';
+import { ErrorResponse } from '../../../../shared/error/error.data';
 import { SnackbarService } from '../../../../shared/snackbar/snackbar.service';
 import { AccountsService } from '../../../accounts.service';
+import { TransactionErrorType } from '../account-transactions.data';
 import { AccountTransactionDeletionDialogData } from './account-transaction-deletion-dialog.data';
 
 @Component({
@@ -34,7 +36,7 @@ export class AccountTransactionDeletionDialog {
         catchError((error: HttpErrorResponse) => {
           let message = 'An error occurred while deleting the transaction.';
 
-          const errorType = error.error.type;
+          const errorType = (error.error as ErrorResponse<TransactionErrorType>)?.type;
           if (errorType === 'AccountNotFoundException') {
             message = 'The account associated with this transaction does not exist.';
           }

@@ -18,3 +18,5 @@ export interface LoginRequest {
   password: string;
   rememberMe: boolean;
 }
+
+export type AuthErrorType = 'BadCredentialsException' | 'UserAlreadyExistsException';

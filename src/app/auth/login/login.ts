@@ -8,7 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 import { catchError, EMPTY, take } from 'rxjs';
+import { ErrorResponse } from '../../shared/error/error.data';
 import { SnackbarService } from '../../shared/snackbar/snackbar.service';
+import { AuthErrorType } from '../auth.data';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -49,7 +51,7 @@ export class Login {
         catchError((error: HttpErrorResponse) => {
           let message = 'An error occurred during login. Please try again later.';
 
-          const errorType = error.error.type;
+          const errorType = (error.error as ErrorResponse<AuthErrorType>)?.type;
           if (errorType === 'BadCredentialsException') {
             message = 'Invalid email or password.';
           }

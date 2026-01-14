@@ -6,3 +6,5 @@ export interface Category {
 export interface CategoryRequest {
   name: string;
 }
+
+export type CategoryErrorType = 'CategoryAlreadyExistsException' | 'CategoryNotFoundException';

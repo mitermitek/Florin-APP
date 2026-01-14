@@ -8,3 +8,5 @@ export interface AccountRequest {
   name: string;
   startingBalance?: number;
 }
+
+export type AccountErrorType = 'AccountAlreadyExistsException' | 'AccountNotFoundException';

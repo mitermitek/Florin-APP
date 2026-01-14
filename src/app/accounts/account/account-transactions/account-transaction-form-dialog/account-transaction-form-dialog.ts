@@ -18,11 +18,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { catchError, EMPTY, map, take } from 'rxjs';
 import { CategoriesService } from '../../../../categories/categories.service';
+import { ErrorResponse } from '../../../../shared/error/error.data';
 import { DEFAULT_SELECT_LIST_PAGINATION_PARAMS } from '../../../../shared/pagination/pagination.data';
 import { SnackbarService } from '../../../../shared/snackbar/snackbar.service';
 import { TRANSACTION_TYPES } from '../../../../transactions/transactions.data';
 import { AccountsService } from '../../../accounts.service';
-import { AccountTransactionRequest } from '../account-transactions.data';
+import { AccountTransactionRequest, TransactionErrorType } from '../account-transactions.data';
 import { AccountTransactionFormDialogData } from './account-transaction-form-dialog.data';
 
 @Component({
@@ -102,7 +103,7 @@ export class AccountTransactionFormDialog {
           const action = this.data.transaction?.id ? 'updating' : 'creating';
           let message = `An error occurred while ${action} the transaction. Please try again later.`;
 
-          const errorType = error.error.type;
+          const errorType = (error.error as ErrorResponse<TransactionErrorType>)?.type;
           if (errorType === 'AccountNotFoundException') {
             message = 'The account associated with this transaction does not exist.';
           }

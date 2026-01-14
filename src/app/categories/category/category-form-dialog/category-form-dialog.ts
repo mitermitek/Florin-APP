@@ -14,8 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { catchError, EMPTY, take } from 'rxjs';
+import { ErrorResponse } from '../../../shared/error/error.data';
 import { SnackbarService } from '../../../shared/snackbar/snackbar.service';
-import { Category } from '../../categories.data';
+import { Category, CategoryErrorType } from '../../categories.data';
 import { CategoriesService } from '../../categories.service';
 
 @Component({
@@ -63,7 +64,7 @@ export class CategoryFormDialog {
           const action = this.data?.id ? 'updating' : 'creating';
           let message = `An error occurred while ${action} the category. Please try again later.`;
 
-          const errorType = error.error.type;
+          const errorType = (error.error as ErrorResponse<CategoryErrorType>)?.type;
           if (errorType === 'CategoryAlreadyExistsException') {
             message = 'A category with this name already exists.';
           }

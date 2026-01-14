@@ -14,8 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { catchError, EMPTY, take } from 'rxjs';
+import { ErrorResponse } from '../../../shared/error/error.data';
 import { SnackbarService } from '../../../shared/snackbar/snackbar.service';
-import { Account } from '../../accounts.data';
+import { Account, AccountErrorType } from '../../accounts.data';
 import { AccountsService } from '../../accounts.service';
 
 @Component({
@@ -64,7 +65,7 @@ export class AccountFormDialog {
           const action = this.data?.id ? 'updating' : 'creating';
           let message = `An error occurred while ${action} the account. Please try again later.`;
 
-          const errorType = error.error.type;
+          const errorType = (error.error as ErrorResponse<AccountErrorType>)?.type;
           if (errorType === 'AccountAlreadyExistsException') {
             message = 'An account with this name already exists.';
           }
