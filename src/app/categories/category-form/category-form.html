@@ -1,0 +1,16 @@
+<form class="form" id="{{ formId() }}" (ngSubmit)="saveCategory()" [formGroup]="categoryForm()">
+  <div class="form__group">
+    <label class="form__label" for="name">Nom</label>
+    <input class="form__input" id="name" formControlName="name" />
+
+    @if (categoryForm().controls.name.touched) {
+      @if (categoryForm().controls.name.errors?.['required']) {
+        <p class="form__error">Le nom de la catégorie est requis.</p>
+      }
+
+      @if (categoryForm().controls.name.errors?.['maxlength']) {
+        <p class="form__error">Le nom de la catégorie ne doit pas dépasser 100 caractères.</p>
+      }
+    }
+  </div>
+</form>

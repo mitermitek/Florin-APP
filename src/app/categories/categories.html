@@ -1,0 +1,77 @@
+<section>
+  <div class="page-header">
+    <h1 class="page-title">Catégories</h1>
+
+    <button type="button" class="btn btn--primary" (click)="openCreateCategory()">
+      Ajouter une catégorie
+    </button>
+  </div>
+
+  @if (paginatedCategories(); as paginatedCategories) {
+    <div class="table-wrapper">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col" class="table__th-actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (category of paginatedCategories.items; track category.id) {
+            <tr>
+              <td scope="row">{{ category.name }}</td>
+              <td>
+                <div class="table__td-actions">
+                  <button
+                    type="button"
+                    class="btn btn--secondary"
+                    (click)="openUpdateCategory(category.id)"
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn--secondary"
+                    (click)="openDeleteCategory(category.id)"
+                  >
+                    Supprimer
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <app-pagination [(paginationParams)]="paginationParams" [total]="paginatedCategories.total" />
+  }
+</section>
+
+@if (displayCategoryForm()) {
+  <app-dialog
+    formId="category-form"
+    [disabled]="categoryForm.categoryForm().invalid"
+    [title]="categoryFormTitle()"
+    (close)="closeCategoryForm()"
+  >
+    <app-category-form
+      #categoryForm
+      formId="category-form"
+      [category]="selectedCategory()"
+      (saved)="handleCategorySaved($event)"
+    />
+  </app-dialog>
+}
+
+@if (displayCategoryDeleteConfirmation()) {
+  @if (selectedCategory(); as selectedCategory) {
+    <app-dialog
+      [title]="'Supprimer la catégorie ' + selectedCategory.name"
+      (close)="closeDeleteCategory()"
+      (confirm)="handleCategoryDelete()"
+    >
+      <p>Êtes-vous sûr de vouloir supprimer la catégorie « {{ selectedCategory.name }} » ?</p>
+    </app-dialog>
+  }
+}
