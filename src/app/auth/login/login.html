@@ -1,41 +1,56 @@
-<form (ngSubmit)="login()" [formGroup]="loginForm">
-  <div>
-    <label for="email">Adresse mail</label>
-    <input id="email" formControlName="email" type="email" autocomplete="email" />
+<div class="card">
+  <h1 class="page-title">Connexion</h1>
 
-    @if (loginForm.controls.email.touched) {
-      @if (loginForm.controls.email.errors?.['required']) {
-        <p>L'adresse mail est requise.</p>
+  <form class="form" (ngSubmit)="login()" [formGroup]="loginForm">
+    <div class="form__group">
+      <label class="form__label" for="email">Adresse mail</label>
+      <input
+        class="form__input"
+        id="email"
+        formControlName="email"
+        type="email"
+        autocomplete="email"
+      />
+
+      @if (loginForm.controls.email.touched) {
+        @if (loginForm.controls.email.errors?.['required']) {
+          <p class="form__error">L'adresse mail est requise.</p>
+        }
+
+        @if (loginForm.controls.email.errors?.['email']) {
+          <p class="form__error">L'adresse mail doit être valide.</p>
+        }
       }
+    </div>
 
-      @if (loginForm.controls.email.errors?.['email']) {
-        <p>L'adresse mail doit être valide.</p>
+    <div class="form__group">
+      <label class="form__label" for="password">Mot de passe</label>
+      <input
+        class="form__input"
+        id="password"
+        formControlName="password"
+        type="password"
+        autocomplete="current-password"
+      />
+
+      @if (loginForm.controls.password.touched) {
+        @if (loginForm.controls.password.errors?.['required']) {
+          <p class="form__error">Le mot de passe est requis.</p>
+        }
       }
-    }
-  </div>
+    </div>
 
-  <div>
-    <label for="password">Mot de passe</label>
-    <input
-      id="password"
-      formControlName="password"
-      type="password"
-      autocomplete="current-password"
-    />
+    <div class="form__checkbox">
+      <input id="remember-me" formControlName="rememberMe" type="checkbox" />
+      <label class="form__label" for="remember-me">Se souvenir de moi</label>
+    </div>
 
-    @if (loginForm.controls.password.touched) {
-      @if (loginForm.controls.password.errors?.['required']) {
-        <p>Le mot de passe est requis.</p>
-      }
-    }
-  </div>
+    <button class="btn btn--primary" type="submit" [disabled]="loginForm.invalid">
+      Se connecter
+    </button>
 
-  <div>
-    <input id="remember-me" formControlName="rememberMe" type="checkbox" />
-    <label for="remember-me">Se souvenir de moi</label>
-  </div>
-
-  <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
-</form>
-
-<p>Vous n'avez pas de compte ? <a routerLink="/auth/register">Inscrivez-vous</a></p>
+    <p class="form__footer">
+      Vous n'avez pas de compte ? <a routerLink="/auth/register">Inscrivez-vous</a>
+    </p>
+  </form>
+</div>
