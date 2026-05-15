@@ -1,0 +1,15 @@
+export interface Paginated<T> {
+  items: T[];
+  total: number;
+}
+
+export interface PaginationParams {
+  page: number;
+  size: number;
+}
+
+export const DEFAULT_PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
+export const DEFAULT_PAGINATION_PARAMS: PaginationParams = {
+  page: 1,
+  size: 10,
+};

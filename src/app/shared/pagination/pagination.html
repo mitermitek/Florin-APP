@@ -1,0 +1,34 @@
+@if (totalPages() > 1) {
+  <nav class="pagination">
+    <button
+      type="button"
+      class="pagination__button"
+      [disabled]="currentPage() === 1"
+      (click)="changePage(currentPage() - 1)"
+    >
+      Précédent
+    </button>
+
+    @for (pageNumber of pageNumbers(); track pageNumber) {
+      <button
+        type="button"
+        class="pagination__button"
+        [class.pagination__button--active]="pageNumber === currentPage()"
+        [attr.aria-current]="pageNumber === currentPage() ? 'page' : null"
+        [disabled]="pageNumber === currentPage()"
+        (click)="changePage(pageNumber)"
+      >
+        {{ pageNumber }}
+      </button>
+    }
+
+    <button
+      type="button"
+      class="pagination__button"
+      [disabled]="currentPage() === totalPages()"
+      (click)="changePage(currentPage() + 1)"
+    >
+      Suivant
+    </button>
+  </nav>
+}
