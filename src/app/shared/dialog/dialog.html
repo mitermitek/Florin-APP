@@ -1,0 +1,28 @@
+<div class="dialog-overlay" role="presentation">
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+    <div class="dialog__header">
+      <h3 class="dialog__title" id="dialog-title">{{ title() }}</h3>
+    </div>
+
+    <div class="dialog__content">
+      <ng-content />
+    </div>
+
+    <div class="dialog__footer">
+      <button type="button" class="btn btn--secondary" (click)="cancel()">Fermer</button>
+
+      @if (formId()) {
+        <button
+          type="submit"
+          class="btn btn--primary"
+          [attr.form]="formId()"
+          [disabled]="disabled()"
+        >
+          Enregistrer
+        </button>
+      } @else {
+        <button type="button" class="btn btn--primary" (click)="validate()">Valider</button>
+      }
+    </div>
+  </div>
+</div>
