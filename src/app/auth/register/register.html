@@ -1,0 +1,109 @@
+<form (ngSubmit)="register()" [formGroup]="registerForm">
+  <div>
+    <label for="first-name">Prénom :</label>
+    <input id="first-name" formControlName="firstName" type="text" autocomplete="given-name" />
+
+    @if (registerForm.controls.firstName.touched) {
+      @if (registerForm.controls.firstName.errors?.['required']) {
+        <p>Le prénom est requis.</p>
+      }
+
+      @if (registerForm.controls.firstName.errors?.['minlength']) {
+        <p>Le prénom doit comporter au moins 3 caractères.</p>
+      }
+
+      @if (registerForm.controls.firstName.errors?.['maxlength']) {
+        <p>Le prénom ne doit pas dépasser 100 caractères.</p>
+      }
+    }
+  </div>
+
+  <div>
+    <label for="last-name">Nom de famille :</label>
+    <input id="last-name" formControlName="lastName" type="text" autocomplete="family-name" />
+
+    @if (registerForm.controls.lastName.touched) {
+      @if (registerForm.controls.lastName.errors?.['required']) {
+        <p>Le nom de famille est requis.</p>
+      }
+
+      @if (registerForm.controls.lastName.errors?.['minlength']) {
+        <p>Le nom de famille doit comporter au moins 3 caractères.</p>
+      }
+
+      @if (registerForm.controls.lastName.errors?.['maxlength']) {
+        <p>Le nom de famille ne doit pas dépasser 100 caractères.</p>
+      }
+    }
+  </div>
+
+  <div>
+    <label for="email">Adresse mail :</label>
+    <input id="email" formControlName="email" type="email" autocomplete="email" />
+
+    @if (registerForm.controls.email.touched) {
+      @if (registerForm.controls.email.errors?.['required']) {
+        <p>L'adresse mail est requise.</p>
+      }
+
+      @if (registerForm.controls.email.errors?.['email']) {
+        <p>L'adresse mail doit être valide.</p>
+      }
+
+      @if (registerForm.controls.email.errors?.['minlength']) {
+        <p>L'adresse mail doit comporter au moins 5 caractères.</p>
+      }
+
+      @if (registerForm.controls.email.errors?.['maxlength']) {
+        <p>L'adresse mail ne doit pas dépasser 255 caractères.</p>
+      }
+    }
+  </div>
+
+  <div>
+    <label for="password">Mot de passe :</label>
+    <input id="password" formControlName="password" type="password" autocomplete="new-password" />
+
+    @if (registerForm.controls.password.touched) {
+      @if (registerForm.controls.password.errors?.['required']) {
+        <p>Le mot de passe est requis.</p>
+      }
+
+      @if (registerForm.controls.password.errors?.['minlength']) {
+        <p>Le mot de passe doit comporter au moins 8 caractères.</p>
+      }
+
+      @if (registerForm.controls.password.errors?.['passwordsMismatch']) {
+        <p>Les mots de passe ne correspondent pas.</p>
+      }
+    }
+  </div>
+
+  <div>
+    <label for="password-confirmation">Confirmer le mot de passe :</label>
+    <input
+      id="password-confirmation"
+      formControlName="passwordConfirmation"
+      type="password"
+      autocomplete="new-password"
+    />
+
+    @if (registerForm.controls.passwordConfirmation.touched) {
+      @if (registerForm.controls.passwordConfirmation.errors?.['required']) {
+        <p>La confirmation du mot de passe est requise.</p>
+      }
+
+      @if (registerForm.controls.passwordConfirmation.errors?.['minlength']) {
+        <p>La confirmation du mot de passe doit comporter au moins 8 caractères.</p>
+      }
+
+      @if (registerForm.controls.passwordConfirmation.errors?.['passwordsMismatch']) {
+        <p>Les mots de passe ne correspondent pas.</p>
+      }
+    }
+  </div>
+
+  <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+</form>
+
+<p>Vous avez déjà un compte ? <a routerLink="/auth/login">Connectez-vous</a></p>
