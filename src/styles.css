@@ -61,22 +61,25 @@ a {
 
 :root {
   /* Colors */
-  --color-background: #f7f6f3;
-  --color-surface: #ffffff;
+  --color-background: #ffffff;
+  --color-surface: #f8f9fa;
 
-  --color-primary: #6b8f71;
-  --color-primary-hover: #56735b;
+  --color-primary: #3a5a40;
+  --color-primary-hover: #436e4b;
 
-  --color-text: #425a4d;
-  --color-text-muted: #7d8578;
+  --color-secondary: #6c757d;
+  --color-secondary-hover: #5a6268;
 
-  --color-border: rgba(52, 78, 65, 0.1);
-  --color-border-light: rgba(52, 78, 65, 0.05);
+  --color-text: #212529;
+  --color-text-muted: #6c757d;
+
+  --color-border: rgba(33, 37, 41, 0.1);
+  --color-border-light: rgba(33, 37, 41, 0.05);
 
   --color-overlay: rgba(22, 22, 22, 0.35);
 
-  --color-hover: rgba(88, 129, 87, 0.05);
-  --color-hover-strong: rgba(88, 129, 87, 0.08);
+  --color-hover: rgba(26, 62, 47, 0.05);
+  --color-hover-strong: rgba(26, 62, 47, 0.08);
 
   --color-danger: #b00020;
 
@@ -197,7 +200,7 @@ body {
 }
 
 .btn:focus-visible {
-  outline: 3px solid rgba(88, 129, 87, 0.2);
+  outline: 3px solid rgba(26, 62, 47, 0.2);
   outline-offset: 2px;
 }
 
@@ -251,7 +254,7 @@ body {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
 
-  background-color: var(--color-surface);
+  background-color: var(--color-background);
   color: var(--color-text);
 
   transition:
@@ -264,8 +267,6 @@ body {
   outline: none;
 
   border-color: var(--color-primary);
-
-  box-shadow: 0 0 0 3px rgba(107, 143, 113, 0.08);
 }
 
 .form__checkbox {
@@ -484,8 +485,6 @@ body {
 
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
-
-  box-shadow: var(--shadow-md);
 }
 
 .dialog__header {
