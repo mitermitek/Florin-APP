@@ -1,0 +1,100 @@
+/* Transaction Cards Styles */
+.transaction-cards {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.transaction-card {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.transaction-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.transaction-card__info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.transaction-card__date {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.transaction-card__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.transaction-card__title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+
+.transaction-card__details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.transaction-card__amount {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.transaction-card__category {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* Transaction Type Styles */
+.transaction-type {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+}
+
+.transaction-type--income {
+  background-color: rgba(58, 90, 64, 0.1);
+  color: var(--color-primary);
+}
+
+.transaction-type--expense {
+  background-color: rgba(176, 0, 32, 0.1);
+  color: var(--color-danger);
+}
+
+.transaction-type--transfer {
+  background-color: rgba(108, 117, 125, 0.1);
+  color: var(--color-secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .transaction-card__header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .transaction-card__actions {
+    justify-content: flex-end;
+  }
+
+  .transaction-card__details {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+  }
+}

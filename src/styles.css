@@ -311,6 +311,10 @@ body {
   border-color: var(--color-primary);
 }
 
+.form__textarea {
+  resize: vertical;
+}
+
 .form__checkbox {
   display: flex;
   align-items: center;
@@ -319,7 +323,106 @@ body {
 
 .form__checkbox input {
   width: auto;
+  height: auto;
+
   accent-color: var(--color-primary);
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  background-color: var(--color-background);
+  color: var(--color-text);
+
+  transition:
+    border-color var(--transition-base),
+    background-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.form__checkbox input:focus {
+  outline: none;
+
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-hover);
+}
+
+.form__checkbox input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.form__checkbox input:checked:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.form__radio-group {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.form__radio-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.form__radio-label input {
+  width: auto;
+  height: auto;
+
+  accent-color: var(--color-primary);
+
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+
+  background-color: var(--color-background);
+  color: var(--color-text);
+
+  transition:
+    border-color var(--transition-base),
+    background-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.form__radio-label input:focus {
+  outline: none;
+
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-hover);
+}
+
+.form__radio-label input:checked {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.form__radio-label input:checked:hover {
+  background-color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.form__select {
+  width: 100%;
+
+  padding: var(--space-2) var(--space-4);
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+
+  background-color: var(--color-background);
+  color: var(--color-text);
+
+  transition:
+    border-color var(--transition-base),
+    background-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.form__select:focus {
+  outline: none;
+
+  border-color: var(--color-primary);
 }
 
 .form__error {
@@ -362,8 +465,6 @@ body {
 
   background-color: var(--color-surface);
 
-  table-layout: fixed;
-
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-sm);
 
@@ -391,8 +492,6 @@ body {
 
 .table th,
 .table td {
-  width: 33.33%;
-
   padding: var(--space-3) var(--space-4);
 
   text-align: left;

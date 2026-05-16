@@ -1,0 +1,100 @@
+<section>
+  <div class="page-header">
+    <h1 class="page-title">Transactions</h1>
+
+    @if (accountForm.value.accountId) {
+      <button type="button" class="btn btn--primary" (click)="openCreateTransaction()">
+        Ajouter une transaction
+      </button>
+    }
+  </div>
+
+  <form class="form" (ngSubmit)="selectAccount()" [formGroup]="accountForm">
+    <div class="form__group">
+      <label class="form__label" for="account-select">Compte</label>
+      <select class="form__select" id="account-select" formControlName="accountId">
+        @if (accounts(); as accounts) {
+          @for (account of accounts.items; track account.id) {
+            <option [value]="account.id">{{ account.name }}</option>
+          }
+        }
+      </select>
+    </div>
+  </form>
+
+  @if (paginatedTransactions(); as paginatedTransactions) {
+    <div class="transaction-cards">
+      @for (transaction of paginatedTransactions.items; track transaction.id) {
+        <div class="card transaction-card">
+          <div class="transaction-card__header">
+            <div class="transaction-card__info">
+              <span class="transaction-card__date">
+                {{ transaction.date | date }}
+              </span>
+              <span [class]="'transaction-type transaction-type--' + transaction.type">
+                {{ displayTransactionType()(transaction.type) }}
+              </span>
+            </div>
+            <div class="transaction-card__actions">
+              <button
+                type="button"
+                class="btn btn--secondary"
+                (click)="openUpdateTransaction(transaction.id)"
+              >
+                Modifier
+              </button>
+              <button
+                type="button"
+                class="btn btn--secondary"
+                (click)="openDeleteTransaction(transaction.id)"
+              >
+                Supprimer
+              </button>
+            </div>
+          </div>
+          <div class="transaction-card__content">
+            <h3 class="transaction-card__title">{{ transaction.title }}</h3>
+            <div class="transaction-card__details">
+              <span class="transaction-card__amount">{{ transaction.amount | currency }}</span>
+              <span class="transaction-card__category">{{ transaction.category.name }}</span>
+            </div>
+          </div>
+        </div>
+      }
+
+      <app-pagination
+        [(paginationParams)]="paginationParams"
+        [total]="paginatedTransactions.total"
+      />
+    </div>
+  }
+</section>
+
+@if (displayTransactionForm() && accountForm.value.accountId) {
+  <app-dialog
+    formId="transaction-form"
+    [disabled]="transactionForm.transactionForm().invalid"
+    [title]="transactionFormTitle()"
+    (close)="closeTransactionForm()"
+  >
+    <app-transaction-form
+      #transactionForm
+      formId="transaction-form"
+      [accountId]="accountForm.value.accountId"
+      [transaction]="selectedTransaction()"
+      (saved)="handleTransactionSaved($event)"
+    />
+  </app-dialog>
+}
+
+@if (displayTransactionDeleteConfirmation()) {
+  @if (selectedTransaction(); as selectedTransaction) {
+    <app-dialog
+      [title]="'Supprimer la transaction ' + selectedTransaction.title"
+      (close)="closeDeleteTransaction()"
+      (confirm)="handleTransactionDelete()"
+    >
+      <p>Êtes-vous sûr de vouloir supprimer la transaction « {{ selectedTransaction.title }} » ?</p>
+    </app-dialog>
+  }
+}

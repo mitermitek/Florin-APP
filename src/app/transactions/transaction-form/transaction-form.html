@@ -1,0 +1,98 @@
+<form
+  class="form"
+  id="{{ formId() }}"
+  (ngSubmit)="saveTransaction()"
+  [formGroup]="transactionForm()"
+>
+  <div class="form__group">
+    <label class="form__label">Type</label>
+
+    <div class="form__radio-group">
+      @for (transactionType of transactionTypes(); track transactionType) {
+        <label class="form__radio-label">
+          <input
+            type="radio"
+            class="form__radio"
+            [value]="transactionType"
+            formControlName="type"
+          />
+          <span>{{ displayTransactionType()(transactionType) }}</span>
+        </label>
+      }
+    </div>
+  </div>
+
+  <div class="form__group">
+    <label class="form__label" for="amount">Montant</label>
+    <input class="form__input" id="amount" type="number" step="0.01" formControlName="amount" />
+
+    @if (transactionForm().controls.amount.touched) {
+      @if (transactionForm().controls.amount.errors?.['required']) {
+        <p class="form__error">Le montant est requis.</p>
+      }
+      @if (transactionForm().controls.amount.errors?.['min']) {
+        <p class="form__error">Le montant doit être positif.</p>
+      }
+    }
+  </div>
+
+  <div class="form__group">
+    <label class="form__label" for="date">Date</label>
+    <input class="form__input" id="date" type="date" formControlName="date" />
+
+    @if (
+      transactionForm().controls.date.touched &&
+      transactionForm().controls.date.errors?.['required']
+    ) {
+      <p class="form__error">La date est requise.</p>
+    }
+  </div>
+
+  <div class="form__group">
+    <label class="form__label" for="title">Titre</label>
+    <input class="form__input" id="title" formControlName="title" />
+
+    @if (transactionForm().controls.title.touched) {
+      @if (transactionForm().controls.title.errors?.['required']) {
+        <p class="form__error">Le titre est requis.</p>
+      }
+      @if (transactionForm().controls.title.errors?.['maxlength']) {
+        <p class="form__error">Le titre ne doit pas dépasser 100 caractères.</p>
+      }
+    }
+  </div>
+
+  <div class="form__group">
+    <label class="form__label" for="description">Description</label>
+    <textarea
+      class="form__input form__textarea"
+      id="description"
+      formControlName="description"
+    ></textarea>
+
+    @if (
+      transactionForm().controls.description.touched &&
+      transactionForm().controls.description.errors?.['maxlength']
+    ) {
+      <p class="form__error">La description ne doit pas dépasser 500 caractères.</p>
+    }
+  </div>
+
+  <div class="form__group">
+    <label class="form__label" for="categoryId">Catégorie</label>
+    <select class="form__select" id="categoryId" formControlName="categoryId">
+      @if (categories(); as categories) {
+        @for (category of categories.items; track category.id) {
+          <option [value]="category.id">{{ category.name }}</option>
+        }
+      }
+    </select>
+
+    @if (
+      transactionForm().controls.categoryId.touched &&
+      transactionForm().controls.categoryId.errors?.['required']
+    ) {
+      <p class="form__error">La catégorie est requise.</p>
+    }
+  </div>
+</form>
