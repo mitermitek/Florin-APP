@@ -23,4 +23,9 @@ export const routes: Routes = [
     loadComponent: () => import('./categories/categories').then((m) => m.Categories),
     canActivate: [authGuard],
   },
+  {
+    path: 'accounts',
+    loadComponent: () => import('./accounts/accounts').then((m) => m.Accounts),
+    canActivate: [authGuard],
+  },
 ];

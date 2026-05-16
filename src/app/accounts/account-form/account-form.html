@@ -1,0 +1,32 @@
+<form class="form" id="{{ formId() }}" (ngSubmit)="saveAccount()" [formGroup]="accountForm()">
+  <div class="form__group">
+    <label class="form__label" for="name">Nom</label>
+    <input class="form__input" id="name" formControlName="name" />
+
+    @if (accountForm().controls.name.touched) {
+      @if (accountForm().controls.name.errors?.['required']) {
+        <p class="form__error">Le nom du compte est requis.</p>
+      }
+
+      @if (accountForm().controls.name.errors?.['maxlength']) {
+        <p class="form__error">Le nom du compte ne doit pas dépasser 100 caractères.</p>
+      }
+    }
+  </div>
+
+  <div class="form__group">
+    <label class="form__label" for="startingBalance">Solde initial</label>
+    <input
+      class="form__input"
+      id="startingBalance"
+      type="number"
+      formControlName="startingBalance"
+    />
+
+    @if (accountForm().controls.startingBalance.touched) {
+      @if (accountForm().controls.startingBalance.errors?.['min']) {
+        <p class="form__error">Le solde initial ne peut pas être négatif.</p>
+      }
+    }
+  </div>
+</form>

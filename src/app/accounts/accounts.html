@@ -1,0 +1,79 @@
+<section>
+  <div class="page-header">
+    <h1 class="page-title">Comptes</h1>
+
+    <button type="button" class="btn btn--primary" (click)="openCreateAccount()">
+      Ajouter un compte
+    </button>
+  </div>
+
+  @if (paginatedAccounts(); as paginatedAccounts) {
+    <div class="table-wrapper">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Solde initial</th>
+            <th scope="col" class="table__th-actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (account of paginatedAccounts.items; track account.id) {
+            <tr>
+              <td scope="row">{{ account.name }}</td>
+              <td>{{ account.startingBalance }}</td>
+              <td>
+                <div class="table__td-actions">
+                  <button
+                    type="button"
+                    class="btn btn--secondary"
+                    (click)="openUpdateAccount(account.id)"
+                  >
+                    Modifier
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn--secondary"
+                    (click)="openDeleteAccount(account.id)"
+                  >
+                    Supprimer
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <app-pagination [(paginationParams)]="paginationParams" [total]="paginatedAccounts.total" />
+  }
+</section>
+
+@if (displayAccountForm()) {
+  <app-dialog
+    formId="account-form"
+    [disabled]="accountForm.accountForm().invalid"
+    [title]="accountFormTitle()"
+    (close)="closeAccountForm()"
+  >
+    <app-account-form
+      #accountForm
+      formId="account-form"
+      [account]="selectedAccount()"
+      (saved)="handleAccountSaved($event)"
+    />
+  </app-dialog>
+}
+
+@if (displayAccountDeleteConfirmation()) {
+  @if (selectedAccount(); as selectedAccount) {
+    <app-dialog
+      [title]="'Supprimer le compte ' + selectedAccount.name"
+      (close)="closeDeleteAccount()"
+      (confirm)="handleAccountDelete()"
+    >
+      <p>Êtes-vous sûr de vouloir supprimer le compte « {{ selectedAccount.name }} » ?</p>
+    </app-dialog>
+  }
+}
