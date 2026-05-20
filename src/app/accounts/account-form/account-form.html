@@ -1,32 +1,47 @@
-<form class="form" id="{{ formId() }}" (ngSubmit)="saveAccount()" [formGroup]="accountForm()">
-  <div class="form__group">
-    <label class="form__label" for="name">Nom</label>
-    <input class="form__input" id="name" formControlName="name" />
+<form id="{{ formId() }}" (ngSubmit)="saveAccount()" [formGroup]="accountForm()">
+  <div>
+    <label for="name">Nom</label>
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      autocomplete="off"
+      aria-describedby="name-error"
+      aria-required="true"
+    />
 
-    @if (accountForm().controls.name.touched) {
-      @if (accountForm().controls.name.errors?.['required']) {
-        <p class="form__error">Le nom du compte est requis.</p>
-      }
+    @if (accountForm().controls.name.touched && accountForm().controls.name.invalid) {
+      <div id="name-error" role="alert" aria-live="polite">
+        @if (accountForm().controls.name.errors?.['required']) {
+          <p>Le nom du compte est requis.</p>
+        }
 
-      @if (accountForm().controls.name.errors?.['maxlength']) {
-        <p class="form__error">Le nom du compte ne doit pas dépasser 100 caractères.</p>
-      }
+        @if (accountForm().controls.name.errors?.['maxlength']) {
+          <p>Le nom du compte ne doit pas dépasser 100 caractères.</p>
+        }
+      </div>
     }
   </div>
 
-  <div class="form__group">
-    <label class="form__label" for="startingBalance">Solde initial</label>
+  <div>
+    <label for="starting-balance">Solde initial</label>
     <input
-      class="form__input"
-      id="startingBalance"
+      id="starting-balance"
       type="number"
       formControlName="startingBalance"
+      aria-describedby="starting-balance-error"
+      aria-required="true"
     />
 
-    @if (accountForm().controls.startingBalance.touched) {
-      @if (accountForm().controls.startingBalance.errors?.['min']) {
-        <p class="form__error">Le solde initial ne peut pas être négatif.</p>
-      }
+    @if (
+      accountForm().controls.startingBalance.touched &&
+      accountForm().controls.startingBalance.invalid
+    ) {
+      <div id="starting-balance-error" role="alert" aria-live="polite">
+        @if (accountForm().controls.startingBalance.errors?.['min']) {
+          <p>Le solde initial ne peut pas être négatif.</p>
+        }
+      </div>
     }
   </div>
 </form>

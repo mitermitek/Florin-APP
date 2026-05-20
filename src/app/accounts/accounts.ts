@@ -10,7 +10,7 @@ import { AccountsService } from './accounts.service';
 
 @Component({
   selector: 'app-accounts',
-  imports: [Pagination, Dialog, AccountForm],
+  imports: [AccountForm, Dialog, Pagination],
   templateUrl: './accounts.html',
   styleUrl: './accounts.css',
 })

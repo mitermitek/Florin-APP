@@ -1,20 +1,16 @@
-<form
-  class="form"
-  id="{{ formId() }}"
-  (ngSubmit)="saveTransaction()"
-  [formGroup]="transactionForm()"
->
-  <div class="form__group">
-    <label class="form__label">Type</label>
+<form id="{{ formId() }}" (ngSubmit)="saveTransaction()" [formGroup]="transactionForm()">
+  <div>
+    <label>Type</label>
 
-    <div class="form__radio-group">
+    <div>
       @for (transactionType of transactionTypes(); track transactionType) {
-        <label class="form__radio-label">
+        <label [for]="'type-' + transactionType">
           <input
             type="radio"
-            class="form__radio"
-            [value]="transactionType"
             formControlName="type"
+            aria-required="true"
+            [id]="'type-' + transactionType"
+            [value]="transactionType"
           />
           <span>{{ displayTransactionType()(transactionType) }}</span>
         </label>
@@ -22,65 +18,101 @@
     </div>
   </div>
 
-  <div class="form__group">
-    <label class="form__label" for="amount">Montant</label>
-    <input class="form__input" id="amount" type="number" step="0.01" formControlName="amount" />
+  <div>
+    <label for="amount">Montant</label>
+    <input
+      id="amount"
+      type="number"
+      step="0.01"
+      formControlName="amount"
+      aria-describedby="amount-error"
+      aria-required="true"
+    />
 
-    @if (transactionForm().controls.amount.touched) {
-      @if (transactionForm().controls.amount.errors?.['required']) {
-        <p class="form__error">Le montant est requis.</p>
-      }
-      @if (transactionForm().controls.amount.errors?.['min']) {
-        <p class="form__error">Le montant doit être positif.</p>
-      }
+    @if (transactionForm().controls.amount.touched && transactionForm().controls.amount.invalid) {
+      <div id="amount-error" role="alert" aria-live="polite">
+        @if (transactionForm().controls.amount.errors?.['required']) {
+          <p>Le montant est requis.</p>
+        }
+        @if (transactionForm().controls.amount.errors?.['min']) {
+          <p>Le montant doit être positif.</p>
+        }
+      </div>
     }
   </div>
 
-  <div class="form__group">
-    <label class="form__label" for="date">Date</label>
-    <input class="form__input" id="date" type="date" formControlName="date" />
+  <div>
+    <label for="date">Date</label>
+    <input
+      id="date"
+      type="date"
+      formControlName="date"
+      autocomplete="off"
+      aria-describedby="date-error"
+      aria-required="true"
+    />
 
-    @if (
-      transactionForm().controls.date.touched &&
-      transactionForm().controls.date.errors?.['required']
-    ) {
-      <p class="form__error">La date est requise.</p>
+    @if (transactionForm().controls.date.touched && transactionForm().controls.date.invalid) {
+      <div id="date-error" role="alert" aria-live="polite">
+        @if (transactionForm().controls.date.errors?.['required']) {
+          <p>La date est requise.</p>
+        }
+      </div>
     }
   </div>
 
-  <div class="form__group">
-    <label class="form__label" for="title">Titre</label>
-    <input class="form__input" id="title" formControlName="title" />
+  <div>
+    <label for="title">Titre</label>
+    <input
+      id="title"
+      type="text"
+      formControlName="title"
+      autocomplete="off"
+      aria-describedby="title-error"
+      aria-required="true"
+    />
 
-    @if (transactionForm().controls.title.touched) {
-      @if (transactionForm().controls.title.errors?.['required']) {
-        <p class="form__error">Le titre est requis.</p>
-      }
-      @if (transactionForm().controls.title.errors?.['maxlength']) {
-        <p class="form__error">Le titre ne doit pas dépasser 100 caractères.</p>
-      }
+    @if (transactionForm().controls.title.touched && transactionForm().controls.title.invalid) {
+      <div id="title-error" role="alert" aria-live="polite">
+        @if (transactionForm().controls.title.errors?.['required']) {
+          <p>Le titre est requis.</p>
+        }
+        @if (transactionForm().controls.title.errors?.['maxlength']) {
+          <p>Le titre ne doit pas dépasser 100 caractères.</p>
+        }
+      </div>
     }
   </div>
 
-  <div class="form__group">
-    <label class="form__label" for="description">Description</label>
+  <div>
+    <label for="description">Description</label>
     <textarea
-      class="form__input form__textarea"
       id="description"
       formControlName="description"
+      aria-describedby="description-error"
+      aria-required="false"
     ></textarea>
 
     @if (
       transactionForm().controls.description.touched &&
-      transactionForm().controls.description.errors?.['maxlength']
+      transactionForm().controls.description.invalid
     ) {
-      <p class="form__error">La description ne doit pas dépasser 500 caractères.</p>
+      <div id="description-error" role="alert" aria-live="polite">
+        @if (transactionForm().controls.description.errors?.['maxlength']) {
+          <p>La description ne doit pas dépasser 500 caractères.</p>
+        }
+      </div>
     }
   </div>
 
-  <div class="form__group">
-    <label class="form__label" for="categoryId">Catégorie</label>
-    <select class="form__select" id="categoryId" formControlName="categoryId">
+  <div>
+    <label for="category-id">Catégorie</label>
+    <select
+      id="category-id"
+      formControlName="categoryId"
+      aria-describedby="category-id-error"
+      aria-required="false"
+    >
       @if (categories(); as categories) {
         @for (category of categories.items; track category.id) {
           <option [value]="category.id">{{ category.name }}</option>
@@ -89,10 +121,13 @@
     </select>
 
     @if (
-      transactionForm().controls.categoryId.touched &&
-      transactionForm().controls.categoryId.errors?.['required']
+      transactionForm().controls.categoryId.touched && transactionForm().controls.categoryId.invalid
     ) {
-      <p class="form__error">La catégorie est requise.</p>
+      <div id="category-id-error" role="alert" aria-live="polite">
+        @if (transactionForm().controls.categoryId.errors?.['required']) {
+          <p>La catégorie est requise.</p>
+        }
+      </div>
     }
   </div>
 </form>

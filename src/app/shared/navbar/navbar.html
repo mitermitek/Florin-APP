@@ -1,15 +1,17 @@
-<nav class="navbar">
+<nav>
   <div>
     <a routerLink="/">
-      <h1 class="navbar__brand">Florin</h1>
+      <h1>Florin</h1>
     </a>
   </div>
-  <div class="navbar__links">
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-      Tableau de bord
-    </a>
-    <a routerLink="/categories" routerLinkActive="active">Catégories</a>
-    <a routerLink="/accounts" routerLinkActive="active">Comptes</a>
-    <a routerLink="/transactions" routerLinkActive="active">Transactions</a>
-  </div>
+  @if (isAuthenticated()) {
+    <div>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        Tableau de bord
+      </a>
+      <a routerLink="/categories" routerLinkActive="active">Catégories</a>
+      <a routerLink="/accounts" routerLinkActive="active">Comptes</a>
+      <a routerLink="/transactions" routerLinkActive="active">Transactions</a>
+    </div>
+  }
 </nav>

@@ -1,20 +1,20 @@
 <section>
-  <div class="page-header">
-    <h1 class="page-title">Comptes</h1>
+  <div>
+    <h1>Comptes</h1>
 
-    <button type="button" class="btn btn--primary" (click)="openCreateAccount()">
+    <button type="button" (click)="openCreateAccount()">
       Ajouter un compte
     </button>
   </div>
 
   @if (paginatedAccounts(); as paginatedAccounts) {
-    <div class="table-wrapper">
-      <table class="table">
+    <div>
+      <table>
         <thead>
           <tr>
             <th scope="col">Nom</th>
             <th scope="col">Solde initial</th>
-            <th scope="col" class="table__th-actions">Actions</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -23,17 +23,15 @@
               <td scope="row">{{ account.name }}</td>
               <td>{{ account.startingBalance }}</td>
               <td>
-                <div class="table__td-actions">
+                <div>
                   <button
                     type="button"
-                    class="btn btn--secondary"
                     (click)="openUpdateAccount(account.id)"
                   >
                     Modifier
                   </button>
                   <button
                     type="button"
-                    class="btn btn--secondary"
                     (click)="openDeleteAccount(account.id)"
                   >
                     Supprimer

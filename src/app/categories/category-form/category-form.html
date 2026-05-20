@@ -1,16 +1,25 @@
-<form class="form" id="{{ formId() }}" (ngSubmit)="saveCategory()" [formGroup]="categoryForm()">
-  <div class="form__group">
-    <label class="form__label" for="name">Nom</label>
-    <input class="form__input" id="name" formControlName="name" />
+<form id="{{ formId() }}" (ngSubmit)="saveCategory()" [formGroup]="categoryForm()">
+  <div>
+    <label for="name">Nom</label>
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      autocomplete="off"
+      aria-describedby="name-error"
+      aria-required="true"
+    />
 
-    @if (categoryForm().controls.name.touched) {
-      @if (categoryForm().controls.name.errors?.['required']) {
-        <p class="form__error">Le nom de la catégorie est requis.</p>
-      }
+    @if (categoryForm().controls.name.touched && categoryForm().controls.name.invalid) {
+      <div id="name-error" role="alert" aria-live="polite">
+        @if (categoryForm().controls.name.errors?.['required']) {
+          <p>Le nom de la catégorie est requis.</p>
+        }
 
-      @if (categoryForm().controls.name.errors?.['maxlength']) {
-        <p class="form__error">Le nom de la catégorie ne doit pas dépasser 100 caractères.</p>
-      }
+        @if (categoryForm().controls.name.errors?.['maxlength']) {
+          <p>Le nom de la catégorie ne doit pas dépasser 100 caractères.</p>
+        }
+      </div>
     }
   </div>
 </form>

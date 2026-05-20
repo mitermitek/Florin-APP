@@ -10,7 +10,7 @@ import { CategoryForm } from './category-form/category-form';
 
 @Component({
   selector: 'app-categories',
-  imports: [Pagination, Dialog, CategoryForm],
+  imports: [CategoryForm, Dialog, Pagination],
   templateUrl: './categories.html',
   styleUrl: './categories.css',
 })

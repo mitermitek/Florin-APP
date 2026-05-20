@@ -1,56 +1,58 @@
-<div class="card">
-  <h1 class="page-title">Connexion</h1>
+<div>
+  <h1>Connexion</h1>
 
-  <form class="form" (ngSubmit)="login()" [formGroup]="loginForm">
-    <div class="form__group">
-      <label class="form__label" for="email">Adresse mail</label>
+  <form (ngSubmit)="login()" [formGroup]="loginForm">
+    <div>
+      <label for="email">Adresse mail</label>
       <input
-        class="form__input"
         id="email"
-        formControlName="email"
         type="email"
+        formControlName="email"
         autocomplete="email"
+        aria-describedby="email-error"
+        aria-required="true"
       />
 
-      @if (loginForm.controls.email.touched) {
-        @if (loginForm.controls.email.errors?.['required']) {
-          <p class="form__error">L'adresse mail est requise.</p>
-        }
+      @if (loginForm.controls.email.touched && loginForm.controls.email.invalid) {
+        <div id="email-error" role="alert" aria-live="polite">
+          @if (loginForm.controls.email.errors?.['required']) {
+            <p>L'adresse mail est requise.</p>
+          }
 
-        @if (loginForm.controls.email.errors?.['email']) {
-          <p class="form__error">L'adresse mail doit être valide.</p>
-        }
+          @if (loginForm.controls.email.errors?.['email']) {
+            <p>L'adresse mail doit être valide.</p>
+          }
+        </div>
       }
     </div>
 
-    <div class="form__group">
-      <label class="form__label" for="password">Mot de passe</label>
+    <div>
+      <label for="password">Mot de passe</label>
       <input
-        class="form__input"
         id="password"
-        formControlName="password"
         type="password"
+        formControlName="password"
         autocomplete="current-password"
+        aria-describedby="password-error"
+        aria-required="true"
       />
 
-      @if (loginForm.controls.password.touched) {
-        @if (loginForm.controls.password.errors?.['required']) {
-          <p class="form__error">Le mot de passe est requis.</p>
+      <div id="password-error" role="alert" aria-live="polite">
+        @if (loginForm.controls.password.touched) {
+          @if (loginForm.controls.password.errors?.['required']) {
+            <p>Le mot de passe est requis.</p>
+          }
         }
-      }
+      </div>
     </div>
 
-    <div class="form__checkbox">
-      <input id="remember-me" formControlName="rememberMe" type="checkbox" />
-      <label class="form__label" for="remember-me">Se souvenir de moi</label>
+    <div>
+      <input id="remember-me" type="checkbox" formControlName="rememberMe" />
+      <label for="remember-me">Se souvenir de moi</label>
     </div>
 
-    <button class="btn btn--primary" type="submit" [disabled]="loginForm.invalid">
-      Se connecter
-    </button>
+    <button type="submit" [disabled]="loginForm.invalid">Se connecter</button>
 
-    <p class="form__footer">
-      Vous n'avez pas de compte ? <a routerLink="/auth/register">Inscrivez-vous</a>
-    </p>
+    <p>Vous n'avez pas de compte ? <a routerLink="/auth/register">Inscrivez-vous</a></p>
   </form>
 </div>

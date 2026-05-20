@@ -25,7 +25,8 @@ export class AccountForm {
           nonNullable: true,
           validators: [Validators.required, Validators.maxLength(100)],
         }),
-        startingBalance: new FormControl<number | null>(this.account()?.startingBalance ?? null, {
+        startingBalance: new FormControl<number | undefined>(this.account()?.startingBalance, {
+          nonNullable: true,
           validators: [Validators.min(0)],
         }),
       }),
@@ -40,7 +41,7 @@ export class AccountForm {
     const formValues = this.accountForm().getRawValue();
     const accountRequest: AccountRequest = {
       name: formValues.name,
-      startingBalance: formValues.startingBalance ?? undefined,
+      startingBalance: formValues.startingBalance,
     };
 
     let observable$: Observable<Account>;
@@ -54,7 +55,7 @@ export class AccountForm {
       next: (account) => {
         this.saved.emit(account);
       },
-      error: (error) => {
+      error: () => {
         this.saved.emit(undefined);
       },
     });

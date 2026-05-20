@@ -13,7 +13,7 @@ import { TransactionsService } from './transactions.service';
 
 @Component({
   selector: 'app-transactions',
-  imports: [CurrencyPipe, DatePipe, Pagination, Dialog, TransactionForm, ReactiveFormsModule],
+  imports: [CurrencyPipe, DatePipe, ReactiveFormsModule, Dialog, Pagination, TransactionForm],
   templateUrl: './transactions.html',
   styleUrl: './transactions.css',
 })

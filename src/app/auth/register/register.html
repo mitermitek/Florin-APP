@@ -1,144 +1,156 @@
-<div class="card">
-  <h1 class="page-title">Inscription</h1>
+<div>
+  <h1>Inscription</h1>
 
-  <form class="form" (ngSubmit)="register()" [formGroup]="registerForm">
-    <div class="form__group">
-      <label class="form__label" for="first-name">Prénom</label>
+  <form (ngSubmit)="register()" [formGroup]="registerForm">
+    <div>
+      <label for="first-name">Prénom</label>
       <input
-        class="form__input"
         id="first-name"
+        type="text"
         formControlName="firstName"
-        type="text"
         autocomplete="given-name"
+        aria-describedby="first-name-error"
+        aria-required="true"
       />
 
-      @if (registerForm.controls.firstName.touched) {
-        @if (registerForm.controls.firstName.errors?.['required']) {
-          <p class="form__error">Le prénom est requis.</p>
-        }
+      @if (registerForm.controls.firstName.touched && registerForm.controls.firstName.invalid) {
+        <div id="first-name-error" role="alert" aria-live="polite">
+          @if (registerForm.controls.firstName.errors?.['required']) {
+            <p>Le prénom est requis.</p>
+          }
 
-        @if (registerForm.controls.firstName.errors?.['minlength']) {
-          <p class="form__error">Le prénom doit comporter au moins 3 caractères.</p>
-        }
+          @if (registerForm.controls.firstName.errors?.['minlength']) {
+            <p>Le prénom doit comporter au moins 3 caractères.</p>
+          }
 
-        @if (registerForm.controls.firstName.errors?.['maxlength']) {
-          <p class="form__error">Le prénom ne doit pas dépasser 100 caractères.</p>
-        }
+          @if (registerForm.controls.firstName.errors?.['maxlength']) {
+            <p>Le prénom ne doit pas dépasser 100 caractères.</p>
+          }
+        </div>
       }
     </div>
 
-    <div class="form__group">
-      <label class="form__label" for="last-name">Nom de famille</label>
+    <div>
+      <label for="last-name">Nom de famille</label>
       <input
-        class="form__input"
         id="last-name"
-        formControlName="lastName"
         type="text"
+        formControlName="lastName"
         autocomplete="family-name"
+        aria-describedby="last-name-error"
+        aria-required="true"
       />
 
-      @if (registerForm.controls.lastName.touched) {
-        @if (registerForm.controls.lastName.errors?.['required']) {
-          <p class="form__error">Le nom de famille est requis.</p>
-        }
+      @if (registerForm.controls.lastName.touched && registerForm.controls.lastName.invalid) {
+        <div id="last-name-error" role="alert" aria-live="polite">
+          @if (registerForm.controls.lastName.errors?.['required']) {
+            <p>Le nom de famille est requis.</p>
+          }
 
-        @if (registerForm.controls.lastName.errors?.['minlength']) {
-          <p class="form__error">Le nom de famille doit comporter au moins 3 caractères.</p>
-        }
+          @if (registerForm.controls.lastName.errors?.['minlength']) {
+            <p>Le nom de famille doit comporter au moins 3 caractères.</p>
+          }
 
-        @if (registerForm.controls.lastName.errors?.['maxlength']) {
-          <p class="form__error">Le nom de famille ne doit pas dépasser 100 caractères.</p>
-        }
+          @if (registerForm.controls.lastName.errors?.['maxlength']) {
+            <p>Le nom de famille ne doit pas dépasser 100 caractères.</p>
+          }
+        </div>
       }
     </div>
 
-    <div class="form__group">
-      <label class="form__label" for="email">Adresse mail</label>
+    <div>
+      <label for="email">Adresse mail</label>
       <input
-        class="form__input"
         id="email"
-        formControlName="email"
         type="email"
+        formControlName="email"
         autocomplete="email"
+        aria-describedby="email-error"
+        aria-required="true"
       />
 
-      @if (registerForm.controls.email.touched) {
-        @if (registerForm.controls.email.errors?.['required']) {
-          <p class="form__error">L'adresse mail est requise.</p>
-        }
+      @if (registerForm.controls.email.touched && registerForm.controls.email.invalid) {
+        <div id="email-error" role="alert" aria-live="polite">
+          @if (registerForm.controls.email.errors?.['required']) {
+            <p>L'adresse mail est requise.</p>
+          }
 
-        @if (registerForm.controls.email.errors?.['email']) {
-          <p class="form__error">L'adresse mail doit être valide.</p>
-        }
+          @if (registerForm.controls.email.errors?.['email']) {
+            <p>L'adresse mail doit être valide.</p>
+          }
 
-        @if (registerForm.controls.email.errors?.['minlength']) {
-          <p class="form__error">L'adresse mail doit comporter au moins 5 caractères.</p>
-        }
+          @if (registerForm.controls.email.errors?.['minlength']) {
+            <p>L'adresse mail doit comporter au moins 5 caractères.</p>
+          }
 
-        @if (registerForm.controls.email.errors?.['maxlength']) {
-          <p class="form__error">L'adresse mail ne doit pas dépasser 255 caractères.</p>
-        }
+          @if (registerForm.controls.email.errors?.['maxlength']) {
+            <p>L'adresse mail ne doit pas dépasser 255 caractères.</p>
+          }
+        </div>
       }
     </div>
 
-    <div class="form__group">
-      <label class="form__label" for="password">Mot de passe</label>
+    <div>
+      <label for="password">Mot de passe</label>
       <input
-        class="form__input"
         id="password"
+        type="password"
         formControlName="password"
-        type="password"
         autocomplete="new-password"
+        aria-describedby="password-error"
+        aria-required="true"
       />
 
-      @if (registerForm.controls.password.touched) {
-        @if (registerForm.controls.password.errors?.['required']) {
-          <p class="form__error">Le mot de passe est requis.</p>
-        }
+      @if (registerForm.controls.password.touched && registerForm.controls.password.invalid) {
+        <div id="password-error" role="alert" aria-live="polite">
+          @if (registerForm.controls.password.errors?.['required']) {
+            <p>Le mot de passe est requis.</p>
+          }
 
-        @if (registerForm.controls.password.errors?.['minlength']) {
-          <p class="form__error">Le mot de passe doit comporter au moins 8 caractères.</p>
-        }
+          @if (registerForm.controls.password.errors?.['minlength']) {
+            <p>Le mot de passe doit comporter au moins 8 caractères.</p>
+          }
 
-        @if (registerForm.controls.password.errors?.['passwordsMismatch']) {
-          <p class="form__error">Les mots de passe ne correspondent pas.</p>
-        }
+          @if (registerForm.controls.password.errors?.['passwordsMismatch']) {
+            <p>Les mots de passe ne correspondent pas.</p>
+          }
+        </div>
       }
     </div>
 
-    <div class="form__group">
-      <label class="form__label" for="password-confirmation">Confirmer le mot de passe</label>
+    <div>
+      <label for="password-confirmation">Confirmer le mot de passe</label>
       <input
-        class="form__input"
         id="password-confirmation"
-        formControlName="passwordConfirmation"
         type="password"
+        formControlName="passwordConfirmation"
         autocomplete="new-password"
+        aria-describedby="password-confirmation-error"
+        aria-required="true"
       />
 
-      @if (registerForm.controls.passwordConfirmation.touched) {
-        @if (registerForm.controls.passwordConfirmation.errors?.['required']) {
-          <p class="form__error">La confirmation du mot de passe est requise.</p>
-        }
+      @if (
+        registerForm.controls.passwordConfirmation.touched &&
+        registerForm.controls.passwordConfirmation.invalid
+      ) {
+        <div id="password-confirmation-error" role="alert" aria-live="polite">
+          @if (registerForm.controls.passwordConfirmation.errors?.['required']) {
+            <p>La confirmation du mot de passe est requise.</p>
+          }
 
-        @if (registerForm.controls.passwordConfirmation.errors?.['minlength']) {
-          <p class="form__error">
-            La confirmation du mot de passe doit comporter au moins 8 caractères.
-          </p>
-        }
+          @if (registerForm.controls.passwordConfirmation.errors?.['minlength']) {
+            <p>La confirmation du mot de passe doit comporter au moins 8 caractères.</p>
+          }
 
-        @if (registerForm.controls.passwordConfirmation.errors?.['passwordsMismatch']) {
-          <p class="form__error">Les mots de passe ne correspondent pas.</p>
-        }
+          @if (registerForm.controls.passwordConfirmation.errors?.['passwordsMismatch']) {
+            <p>Les mots de passe ne correspondent pas.</p>
+          }
+        </div>
       }
     </div>
 
-    <button class="btn btn--primary" type="submit" [disabled]="registerForm.invalid">
-      S'inscrire
-    </button>
+    <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
 
-    <p class="form__footer">
-      Vous avez déjà un compte ? <a routerLink="/auth/login">Connectez-vous</a>
-    </p>
+    <p>Vous avez déjà un compte ? <a routerLink="/auth/login">Connectez-vous</a></p>
   </form>
 </div>
