@@ -1,8 +1,10 @@
 <div>
-  <h1>Inscription</h1>
+  <div class="page-header">
+    <h1>Inscription</h1>
+  </div>
 
-  <form (ngSubmit)="register()" [formGroup]="registerForm">
-    <div>
+  <form class="form" (ngSubmit)="register()" [formGroup]="registerForm">
+    <div class="form-group">
       <label for="first-name">Prénom</label>
       <input
         id="first-name"
@@ -30,7 +32,7 @@
       }
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="last-name">Nom de famille</label>
       <input
         id="last-name"
@@ -58,7 +60,7 @@
       }
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="email">Adresse mail</label>
       <input
         id="email"
@@ -90,7 +92,7 @@
       }
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="password">Mot de passe</label>
       <input
         id="password"
@@ -118,7 +120,7 @@
       }
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="password-confirmation">Confirmer le mot de passe</label>
       <input
         id="password-confirmation"

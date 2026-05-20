@@ -1,0 +1,38 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 8px 0;
+  position: relative;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0 16px;
+}
+
+.nav-burger-menu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-background);
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .nav-links.nav-links-menu {
+    display: flex;
+  }
+
+  .nav-burger-menu {
+    display: block;
+  }
+}

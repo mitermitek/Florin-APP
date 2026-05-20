@@ -1,11 +1,12 @@
 @if (totalPages() > 1) {
-  <nav>
+  <nav class="pagination">
     <button
       type="button"
       [disabled]="currentPage() === 1"
       (click)="changePage(currentPage() - 1)"
+      aria-label="Précédent"
     >
-      Précédent
+      <i class="ri-arrow-left-s-line"></i>
     </button>
 
     @for (pageNumber of pageNumbers(); track pageNumber) {
@@ -23,8 +24,9 @@
       type="button"
       [disabled]="currentPage() === totalPages()"
       (click)="changePage(currentPage() + 1)"
+      aria-label="Suivant"
     >
-      Suivant
+      <i class="ri-arrow-right-s-line"></i>
     </button>
   </nav>
 }

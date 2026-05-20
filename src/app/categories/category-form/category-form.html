@@ -1,5 +1,5 @@
-<form id="{{ formId() }}" (ngSubmit)="saveCategory()" [formGroup]="categoryForm()">
-  <div>
+<form class="form" id="{{ formId() }}" (ngSubmit)="saveCategory()" [formGroup]="categoryForm()">
+  <div class="form-group">
     <label for="name">Nom</label>
     <input
       id="name"
@@ -11,7 +11,7 @@
     />
 
     @if (categoryForm().controls.name.touched && categoryForm().controls.name.invalid) {
-      <div id="name-error" role="alert" aria-live="polite">
+      <div class="form-error" id="name-error" role="alert" aria-live="polite">
         @if (categoryForm().controls.name.errors?.['required']) {
           <p>Le nom de la catégorie est requis.</p>
         }

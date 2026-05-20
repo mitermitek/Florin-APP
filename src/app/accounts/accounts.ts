@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, EMPTY, switchMap, take } from 'rxjs';
@@ -10,7 +11,7 @@ import { AccountsService } from './accounts.service';
 
 @Component({
   selector: 'app-accounts',
-  imports: [AccountForm, Dialog, Pagination],
+  imports: [CurrencyPipe, AccountForm, Dialog, Pagination],
   templateUrl: './accounts.html',
   styleUrl: './accounts.css',
 })

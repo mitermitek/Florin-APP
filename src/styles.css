@@ -1,1 +1,146 @@
 @import 'remixicon/fonts/remixicon.css';
+
+/* Reset CSS */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Color Tokens */
+:root {
+  /* Primary Color - Green */
+  --color-primary: #197030;
+  --color-primary-hover: #145a27;
+  --color-primary-active: #104a20;
+
+  /* Light/Accent */
+  --color-light: #ffffff;
+  --color-light-hover: #f8f9fa;
+  --color-light-active: #e9ecef;
+
+  /* Text colors */
+  --color-text: #333333;
+  --color-text-light: #666666;
+
+  /* Background colors */
+  --color-background: #ffffff;
+  --color-background-overlay: #0000002f;
+
+  /* Border colors */
+  --color-border: #dddddd;
+  --color-border-hover: #cccccc;
+}
+
+/* Layout */
+
+html, body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.table {
+  width: auto;
+  min-width: 100%;
+
+  th, td {
+    padding: 4px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  th.table-action {
+    text-align: right;
+  }
+
+  td > .table-actions {
+    display: flex;
+    justify-content: end;
+    gap: 0 4px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px 0;
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px 0;
+
+    & > div {
+      display: flex;
+      gap: 0 8px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+  }
+}

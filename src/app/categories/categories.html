@@ -1,19 +1,17 @@
 <section>
-  <div>
+  <div class="page-header">
     <h1>Catégories</h1>
 
-    <button type="button" (click)="openCreateCategory()">
-      Ajouter une catégorie
-    </button>
+    <button type="button" (click)="openCreateCategory()">Ajouter une catégorie</button>
   </div>
 
   @if (paginatedCategories(); as paginatedCategories) {
-    <div>
-      <table>
+    <div class="table-container">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col">Nom</th>
-            <th scope="col">Actions</th>
+            <th scope="col" class="table-action">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -21,18 +19,20 @@
             <tr>
               <td scope="row">{{ category.name }}</td>
               <td>
-                <div>
+                <div class="table-actions">
                   <button
                     type="button"
                     (click)="openUpdateCategory(category.id)"
+                    [attr.aria-label]="'Modifier la catégorie ' + category.name"
                   >
-                    Modifier
+                    <i class="ri-edit-box-line"></i>
                   </button>
                   <button
                     type="button"
                     (click)="openDeleteCategory(category.id)"
+                    [attr.aria-label]="'Supprimer la catégorie ' + category.name"
                   >
-                    Supprimer
+                    <i class="ri-delete-bin-line"></i>
                   </button>
                 </div>
               </td>

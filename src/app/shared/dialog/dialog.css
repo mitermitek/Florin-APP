@@ -1,0 +1,27 @@
+.dialog-overlay {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: var(--color-background-overlay);
+
+  .dialog {
+    display: flex;
+    flex-direction: column;
+    gap: 24px 0;
+    max-width: 512px;
+    padding: 8px;
+    margin: 8px auto 8px auto;
+    background-color: var(--color-background);
+
+    .dialog-footer {
+      display: flex;
+      justify-content: end;
+      gap: 0 8px;
+    }
+  }
+}

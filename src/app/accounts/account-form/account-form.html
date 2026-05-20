@@ -1,5 +1,5 @@
-<form id="{{ formId() }}" (ngSubmit)="saveAccount()" [formGroup]="accountForm()">
-  <div>
+<form class="form" id="{{ formId() }}" (ngSubmit)="saveAccount()" [formGroup]="accountForm()">
+  <div class="form-group">
     <label for="name">Nom</label>
     <input
       id="name"
@@ -23,7 +23,7 @@
     }
   </div>
 
-  <div>
+  <div class="form-group">
     <label for="starting-balance">Solde initial</label>
     <input
       id="starting-balance"

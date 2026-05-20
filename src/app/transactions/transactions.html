@@ -1,5 +1,5 @@
 <section>
-  <div>
+  <div class="page-header">
     <h1>Transactions</h1>
 
     @if (accountForm.value.accountId) {
@@ -7,8 +7,8 @@
     }
   </div>
 
-  <form (ngSubmit)="selectAccount()" [formGroup]="accountForm">
-    <div>
+  <form class="form account-selection" (ngSubmit)="selectAccount()" [formGroup]="accountForm">
+    <div class="form-group">
       <label for="account-select">Compte</label>
       <select id="account-select" formControlName="accountId">
         @if (accounts(); as accounts) {
@@ -21,40 +21,49 @@
   </form>
 
   @if (paginatedTransactions(); as paginatedTransactions) {
-    <ul>
-      @for (transaction of paginatedTransactions.items; track transaction.id) {
-        <li>
-          <dl>ID</dl>
-          <dd>{{ transaction.id }}</dd>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col" class="table-action">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (transaction of paginatedTransactions.items; track transaction.id) {
+            <tr>
+              <td scope="row">{{ transaction.date | date }}</td>
+              <td>{{ transaction.title }}</td>
+              <td>{{ transaction.amount | currency }}</td>
+              <td>{{ transaction.category.name }}</td>
+              <td>
+                <div class="table-actions">
+                  <button
+                    type="button"
+                    (click)="openUpdateTransaction(transaction.id)"
+                    [attr.aria-label]="'Modifier la transaction ' + transaction.title"
+                  >
+                    <i class="ri-edit-box-line"></i>
+                  </button>
+                  <button
+                    type="button"
+                    (click)="openDeleteTransaction(transaction.id)"
+                    [attr.aria-label]="'Supprimer la transaction ' + transaction.title"
+                  >
+                    <i class="ri-delete-bin-line"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
 
-          <dl>Type</dl>
-          <dd>{{ displayTransactionType()(transaction.type) }}</dd>
-
-          <dl>Montant</dl>
-          <dd>{{ transaction.amount | currency }}</dd>
-
-          <dl>Date</dl>
-          <dd>{{ transaction.date | date }}</dd>
-
-          <dl>Titre</dl>
-          <dd>{{ transaction.title }}</dd>
-
-          <dl>Description</dl>
-          <dd>{{ transaction.description }}</dd>
-
-          <dl>Catégorie</dl>
-          <dd>{{ transaction.category.name }}</dd>
-
-          <button type="button" (click)="openUpdateTransaction(transaction.id)">Modifier</button>
-          <button type="button" (click)="openDeleteTransaction(transaction.id)">Supprimer</button>
-        </li>
-      }
-
-      <app-pagination
-        [(paginationParams)]="paginationParams"
-        [total]="paginatedTransactions.total"
-      />
-    </ul>
+    <app-pagination [(paginationParams)]="paginationParams" [total]="paginatedTransactions.total" />
   }
 </section>
 

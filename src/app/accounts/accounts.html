@@ -1,40 +1,40 @@
 <section>
-  <div>
+  <div class="page-header">
     <h1>Comptes</h1>
 
-    <button type="button" (click)="openCreateAccount()">
-      Ajouter un compte
-    </button>
+    <button type="button" (click)="openCreateAccount()">Ajouter un compte</button>
   </div>
 
   @if (paginatedAccounts(); as paginatedAccounts) {
-    <div>
-      <table>
+    <div class="table-container">
+      <table class="table">
         <thead>
           <tr>
             <th scope="col">Nom</th>
             <th scope="col">Solde initial</th>
-            <th scope="col">Actions</th>
+            <th scope="col" class="table-action">Actions</th>
           </tr>
         </thead>
         <tbody>
           @for (account of paginatedAccounts.items; track account.id) {
             <tr>
               <td scope="row">{{ account.name }}</td>
-              <td>{{ account.startingBalance }}</td>
+              <td>{{ account.startingBalance | currency }}</td>
               <td>
-                <div>
+                <div class="table-actions">
                   <button
                     type="button"
                     (click)="openUpdateAccount(account.id)"
+                    [attr.aria-label]="'Modifier le compte ' + account.name"
                   >
-                    Modifier
+                    <i class="ri-edit-box-line"></i>
                   </button>
                   <button
                     type="button"
                     (click)="openDeleteAccount(account.id)"
+                    [attr.aria-label]="'Supprimer le compte ' + account.name"
                   >
-                    Supprimer
+                    <i class="ri-delete-bin-line"></i>
                   </button>
                 </div>
               </td>
